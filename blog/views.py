@@ -1,17 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-# about/ -> "About"
-
-
-# request = объект класса  HtttpResponse который формирует из запроса от клиента на наш сервер 
-
-def hello(request):
-
-    return HttpResponse("Hello", headers = {"Name": "Alex"}, status = 500)
+def get_index(request):
+    context = {
+        "title": "Главная страница",
+        "my_list":[1, 2, 3, 4]
+    }
+    return render(request, "blog/index.html", context=context)
 
 def get_about(request):
-    return HttpResponse("как-то так1")
+    return render(request, "blog/about.html", context=None)
 
 def get_contacts(request):
-    return HttpResponse("как-то так")
+    context = {
+    "title" : "как то так"
+    }
+    return render(request, "blog/contacts.html", context=None)
