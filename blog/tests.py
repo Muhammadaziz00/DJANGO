@@ -2,25 +2,23 @@ from django.test import TestCase, Client
 from django.urls import reverse
 
 
-class HelloViewTestCase(TestCase):
+
+class BlogViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
 
     def test_hello(self):
         response = self.client.get(reverse("index-page"))
-        expected_date = "Hello"
-        self.assertEqual(expected_date, response.connect.decode())
-        self.assertEqual(500, response.status_code)
-        self.assertEqual(response["Name"], "Alex")
+        self.assertTemplateUsed(response,"blog/index.html")
+        self.assertEqual(200, response.status_code)
+        
 
     def test_about(self):
-        response = self.client.get(reverse('about-views'))
-        excepted_data = "как-то так"
-        self.assertEqual(excepted_data, response.content.decode())
+        response = self.client.get(reverse("about-view"))
+        self.assertTemplateUsed(response,"blog/about.html")
+        self.assertEqual(200, response.status_code)
 
-
-    
     def test_contacts(self):
-        response = self.client.get(reverse('contacts-views'))
-        excepted_data = "как-то так2"
-        self.assertEqual(excepted_data, response.content.decode())
+        response = self.client.get(reverse("contacts-view"))
+        self.assertTemplateUsed(response,"blog/contacts.html")
+        self.assertEqual(200, response.status_code)
