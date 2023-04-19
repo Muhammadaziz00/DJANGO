@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}
-Создать
+Создать пост
 {% endblock %}
 {% block content %}
 
     <form action="" method="post">
     {% csrf_token %}
-
-        {{ form.as_p}}
-
-        <button type="submit">Создать запись</button>
-
+        <label for="title">Введите название:</label><br>
+        <input type="text" name="title"><br>
+        <label for="content">Введите текст поста:</label><br>
+        <input type="text" name="content"><br><br>
+        <button type="submit">Опубликовать</button>
     </form>
 
-    <a href="{% url 'index-page' %}">На главную</a>
 {% endblock %}
