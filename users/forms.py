@@ -1,18 +1,13 @@
 from django.contrib.auth.models import User
 from django import forms
-
-class UserReqistrationForm(forms.ModelsForm):
-    password = forms.CharField(laabel = "Пароль", widget = forms.PasswordIput)
-    password2 = forms.CharField(lable = "Повторите пароль", widget = forms.PasswordInput)
-
-
+class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(label="пароль",widget=forms.PasswordInput)
+    password2 = forms.CharField(label="повторный пароль",widget=forms.PasswordInput)
     class Meta:
         model = User
-        fiels = ("username", "first_name", "email")
+        fields = ("username", "first_name", "email")
 
     def clean_password2(self):
-        cd = self.cleaned_date
-        if cd['password'] != cd['password2']:
-            raise forms.ValidationError("Пароль не совподает!")
-        return cd["password2"]
-
+        cd = self.cleaned_data
+        if cd["password"] != cd["password2"]:
+            raise forms.ValidationError("пароли не совпадают")

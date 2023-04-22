@@ -1,17 +1,18 @@
 from django.shortcuts import render
-from django.views import View
+from django.views import generic
+from django.urls import reverse_lazy
 from users.forms import UserRegistrationForm
 
-class RegisterView(View):
-    def get(self, request):
-        user_form = UserRegistrationForm()
-        return render(request, "registration/register.html", {'form': user_form})
+class RegisterView(generic.FormView):
+    template_name = 'registration/register.html'
+    form_class = UserRegistrationForm
+    success_url = reverse_lazy('register-done')
 
-    def post(self, request):
-        user_form = UserRegistrationForm(request.POST)
-        if user_form.is_valid():
-            new_user = user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data['password2'])
-            new_user.save()
-            return render(request, "registration/register_done.html", {"user": new_user})
-        return render(request, "registration/register.html", {'form': user_form})
+    def form_valid(self, form):
+        new_user = form.save(commit=False)
+        new_user.set_password(form.cleaned_data['password2'])
+        new_user.save()
+        return super().form_valid(form)
+    
+class RegisterDoneView(generic.TemplateView):
+    template_name="registration/register_done.html"
