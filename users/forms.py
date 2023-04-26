@@ -1,5 +1,21 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
+
+from users.models import GeekUser
+
+class GeekUserCreationForm(UserCreationForm):
+    class Meta:
+        model = GeekUser
+        fields = ("email",)
+
+class GeekUserChangeForm(UserChangeForm):
+    class Meta:
+        model = GeekUser
+        fields = ("email",)
+
+        
+class GeekUserCreateionForm()
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label="пароль",widget=forms.PasswordInput)
     password2 = forms.CharField(label="повторный пароль",widget=forms.PasswordInput)

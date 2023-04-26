@@ -137,6 +137,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = "users.GeekUser"
+
 LOGIN_REGIRECT_URL="/"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
